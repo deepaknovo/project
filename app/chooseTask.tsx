@@ -2,8 +2,12 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { router } from 'expo-router';
 
+
 export default function ChooseTask() {
 
+  const handleChoose = (task: number) => {
+    router.push(task === 1 ? "/splash" : "/splash2");
+  };
 
   return (
     <View style={styles.container}>
@@ -11,15 +15,17 @@ export default function ChooseTask() {
 
       <TouchableOpacity
         style={styles.card}
-        onPress={() => router.push("/splash")}
+        onPress={() => handleChoose(1)
+          }
       >
         <Text style={styles.cardTitle}>Task 1</Text>
-        <Text style={styles.cardSubtitle}>Go to Task 1 Flow</Text>
+        <Text style={styles.cardSubtitle}>Face Upload Feature</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.card}
-        onPress={() => router.push("/splash2")}
+        onPress={() =>
+            handleChoose(2) }
       >
         <Text style={styles.cardTitle}>Task 2</Text>
         <Text style={styles.cardSubtitle}>Landing Page with Grid</Text>

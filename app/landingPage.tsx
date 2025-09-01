@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { AppContext } from "@/store/AppContext";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -23,8 +24,8 @@ interface MappedSKU {
 
 
 export default function LandingPage() {
-   const [data, setData] = useState<MappedSKU[]>([]);
-
+   
+   const { state, dispatch } = useContext(AppContext);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -42,13 +43,11 @@ export default function LandingPage() {
 
      
       let json: any = await response.json();
-      if (typeof json === "string") {
-        json = JSON.parse(json);
-      }
+      if (typeof json === "string") json = JSON.parse(json);
+        dispatch({ type: "SET_API_DATA", payload: json.MappedSkuList || [] });
+
 
       console.log("API keys:", Object.keys(json));
-
-      setData(json.MappedSkuList || []);
  
     } catch (error) {
       console.error("API Error:", error);
@@ -133,7 +132,7 @@ export default function LandingPage() {
       {/* Right panel with API data */}
       <View style={styles.rightPanel}>
         <FlatList
-          data={data}
+          data={state.apiData}
           renderItem={renderItem}
           keyExtractor={(item) => item.SKUID}
           numColumns={2}

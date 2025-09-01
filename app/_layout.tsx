@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
+import { AppProvider } from '@/store/AppContext';
 
 export default function RootLayout() {
   useFrameworkReady();
 
   return (
-    <>
+    <AppProvider>
       <Stack 
       initialRouteName='chooseTask'
       screenOptions={{ headerShown: false }}>
@@ -22,6 +23,6 @@ export default function RootLayout() {
 
       </Stack>
       <StatusBar style="auto" />
-    </>
+    </AppProvider>
   );
 }
