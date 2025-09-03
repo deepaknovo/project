@@ -5,7 +5,7 @@ export default function WardrobeStack() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="splash2" />
       <Stack.Screen name="landingPage" />
-      <Stack.Screen name="Wardrobe" /> {/* optional */}
+      <Stack.Screen name="index" /> {/* optional */}
     </Stack>
   );
 }

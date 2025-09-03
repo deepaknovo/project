@@ -5,7 +5,14 @@ import { Image } from "react-native";
 
 export default function Task2Layout() {
   return (
-    <Tabs screenOptions={{ headerShown: false, 
+    <Tabs screenOptions={{ headerShown: false,
+        tabBarActiveTintColor: "#000",
+        tabBarInactiveTintColor: "#888",
+        tabBarLabelStyle: {
+          fontSize: 14,    // increase size
+          fontWeight: "600",
+        },
+
         tabBarStyle: {
         height: 80,
         flexDirection: "row",
@@ -15,12 +22,16 @@ export default function Task2Layout() {
         borderTopColor: "#ccc",
         backgroundColor: "#fff",
         width: "100%",
-      } }}>
+        elevation: 5,
+      } ,
+    
+      }} >
       
         <Tabs.Screen
           name={"wardrobe"}
           options={{
             title: "wardrobe",
+         
             tabBarIcon: ({ focused ,size}) => (
               <Image
                 source={require("../../assets/images/hanger.png")}
