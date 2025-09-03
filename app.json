@@ -26,6 +26,12 @@
     },
     "android": {
       "package": "com.x1723110034.boltexponativewind"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "37625ff6-6309-4ce7-a604-71fb6a5d14aa"
+      }
     }
   }
 }
