@@ -1,18 +1,20 @@
-import { AppContext } from "@/store/AppContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect ,useContext,useState} from "react";
 import {
   View,
   Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
   StyleSheet,
+  ImageBackground,
+  Image,
+  Dimensions,
+  FlatList,
+  TouchableOpacity,
   ActivityIndicator,
   ToastAndroid,
   Platform,
-  Dimensions,
-  ImageBackground,
 } from "react-native";
+import { router } from "expo-router";
+import { AppContext } from "@/store/AppContext";
+
 const { width, height } = Dimensions.get("window");
 
 interface MappedSKU {
@@ -24,6 +26,11 @@ interface MappedSKU {
 
 
 export default function LandingPage() {
+  const bottomMenuData = [
+    { id: "1", label: "My Wardrobe", icon: require("../assets/images/hanger.png") },
+    { id: "2", label: "My Profile", icon: require("../assets/images/profile.png") },
+    { id: "3", label: "Friends", icon: require("../assets/images/friends.png") },
+  ];
    
    const { state, dispatch } = useContext(AppContext);
   const [loading, setLoading] = useState<boolean>(true);
@@ -64,25 +71,18 @@ export default function LandingPage() {
       console.log(`SKUID: ${skuId}`);
     }
   }; 
+
   const LeftPanel = () => (
-     <View style={styles.leftContainer}>
-      {/* Background image */}
-      <ImageBackground
-        source={require("../assets/images/rectangle.png")}
-        style={styles.bgImage}
-        resizeMode="cover"
-      >
-        {/* Overlay Model */}
-        <Image
-          source={require("../assets/images/model.png")}
-          style={styles.modelImage}
-          resizeMode="contain"
-        />
-      </ImageBackground>
+    <View style={styles.leftContainer}>
+      <Image
+        source={require("../assets/images/model.png")}
+        style={styles.modelImage}
+        resizeMode="contain"
+      />
     </View>
   );
 
-   const getCategoryName = (cat: any) => {
+     const getCategoryName = (cat: any) => {
     switch (cat) {
       case 0:
         return "Dresses"; // fallback for now
@@ -124,21 +124,36 @@ export default function LandingPage() {
 
   return (
     <View style={styles.container}>
-      {/* Left panel */}
-      <View style={styles.leftPanel}>
-        <LeftPanel></LeftPanel>
-      </View>
+      <ImageBackground
+        style={styles.bgImage}
+        resizeMode="stretch"
+        source={require("../assets/images/rectangle.png")}
+      >
+        {/* Left side model */}
+        <LeftPanel />
 
-      {/* Right panel with API data */}
-      <View style={styles.rightPanel}>
-        <FlatList
+        {/* Right Menu */}
+        <View style={styles.rightMenu}> 
+          <Text style={styles.menuTitle}>Types</Text>
+          <FlatList
           data={state.apiData}
           renderItem={renderItem}
           keyExtractor={(item) => item.SKUID}
           numColumns={2}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
+          
         />
+        </View>
+      </ImageBackground>
+
+      {/* Bottom Menu */}
+      <View style={styles.bottomMenu}>
+        {bottomMenuData.map((item) => (
+          <View key={item.id} style={styles.bottomItem}>
+            <Image source={item.icon} style={styles.bottomIcon} />
+            <Text style={styles.bottomText}>{item.label}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -147,50 +162,69 @@ export default function LandingPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: "#fff",
-    paddingTop: 40,
-  },
-  leftPanel: {
-    width: width * 0.5,
-    backgroundColor: "#f1f1f1",
-   
-  },
-    leftContainer: {
-    flex: 1,
-    // backgroundColor: "#000",
   },
   bgImage: {
-   flex:1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: height * 0.9,
+  },
+  leftContainer: {
+    width: width * 0.5,
+    height: "100%",
   },
   modelImage: {
-    width: "90%",
-    height: height * 0.8, // adjust to fit
+    marginTop: 20,
+    width: "100%",
+    height: height * 0.9,
+    overflow: "hidden",
   },
-  sideText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  rightPanel: {
-    flex: 1,
+  rightMenu: {
+    width: width * 0.48,
     backgroundColor: "#fff",
-    width: width * 0.5,
+    paddingTop:40,
+    paddingHorizontal:10
   },
-  listContainer: {
-    paddingHorizontal: 10,
+  menuTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign:"left"
   },
-itemContainer: {
-    flex: 1,
+  bottomMenu: {
+    position: "absolute",
+    bottom: 0,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingVertical: 15,
+    borderTopWidth: 1,
+    borderTopColor: "#ccc",
+    backgroundColor: "#fff",
+    width: "100%",
+  },
+  bottomItem: {
+    alignItems: "center",
+    marginHorizontal: 20,
+   
+  },
+  bottomIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: "contain",
+    marginBottom: 5,
+  },
+  bottomText: {
+    fontSize: 12,
+    color: "#000",
+  },
+  itemContainer: {
     margin: 10,
     alignItems: "center",
   },
   circle: {
-    width: width * 0.2,
-    height: width * 0.2,
-    borderRadius: (width * 0.2) / 2,
+    width: width * 0.15,
+    height: width * 0.15,
+    borderRadius: (width * 0.15) / 2,
     borderWidth: 2,
     borderColor: "#000",
     overflow: "hidden",
