@@ -5,7 +5,7 @@ import { router } from 'expo-router';
 
 export default function IntroductionScreen() {
   const handleGetStarted = () => {
-    router.push('/face-upload');
+    router.push('/task1/face-upload');
   };
 
   return (
@@ -14,7 +14,7 @@ export default function IntroductionScreen() {
         
           <Image
             resizeMode='stretch'
-            source={require('../assets/images/introduction.png')}
+            source={require('../../assets/images/introduction.png')}
             style={styles.fashionImage}
             
           />
@@ -28,7 +28,7 @@ export default function IntroductionScreen() {
           
           <TouchableOpacity style={styles.getStartedButton} onPress={handleGetStarted}>
             <Image 
-              source={require('../assets/images/Arrow right-circle.png')}
+              source={require('../../assets/images/Arrow right-circle.png')}
               style={styles.arrowIcon}
             />
           </TouchableOpacity>

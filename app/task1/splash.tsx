@@ -15,7 +15,7 @@ export default function SplashScreen() {
 
     // Navigate to introduction after 3 seconds
     const timer = setTimeout(() => {
-      router.replace('/introduction');
+      router.replace('/task1/introduction');
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -26,7 +26,7 @@ export default function SplashScreen() {
       <View style={styles.content}>
         <View style={styles.logoContainer}>
           <Image
-            source={require('../assets/images/splash 1.png')}
+            source={require('../../assets/images/splash 1.png')}
             style={styles.logoImage}
           />
         </View>

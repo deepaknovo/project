@@ -136,7 +136,7 @@ export default function FaceUploadScreen() {
       saveImageToGallery();
       
       // Navigate to success screen
-      router.push('/success');
+      router.push('/task1/success');
     }, 3000);
   };
 

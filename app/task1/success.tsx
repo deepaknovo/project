@@ -4,11 +4,11 @@ import { router } from 'expo-router';
 
 export default function SuccessScreen() {
   const handleContinue = () => {
-    router.push('/gallery');
+    router.push('/task1/gallery');
   };
 
   const handleTakeAnother = () => {
-    router.push('/face-upload');
+    router.push('/task1/face-upload');
   };
 
   return (
@@ -16,7 +16,7 @@ export default function SuccessScreen() {
       <View style={styles.content}>
         <View style={styles.successIconContainer}>
           <Image
-            source={require('../assets/images/success.png')}
+            source={require('../../assets/images/success.png')}
             style={styles.successIcon}
           />
         </View>

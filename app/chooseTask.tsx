@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 export default function ChooseTask() {
 
   const handleChoose = (task: number) => {
-    router.push(task === 1 ? "/splash" : "/splash2");
+    router.push(task === 1 ? "/task1/splash" : "/task2/wardrobe/splash2");
   };
 
   return (
