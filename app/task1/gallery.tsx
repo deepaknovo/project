@@ -130,7 +130,7 @@ export default function GalleryScreen() {
             </Text>
             <TouchableOpacity
               style={styles.uploadButton}
-              onPress={() => router.push('/face-upload')}>
+              onPress={() => router.push('/task1/face-upload')}>
               <Text style={styles.uploadButtonText}>Take a Photo</Text>
             </TouchableOpacity>
           </View>
